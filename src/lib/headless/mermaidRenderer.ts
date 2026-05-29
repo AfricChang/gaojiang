@@ -49,30 +49,27 @@ function normalizeSvg(svg: string): string {
 }
 
 async function launchHeadlessBrowser(): Promise<Browser> {
-    try {
-        return await chromium.launch({ headless: true });
-    } catch (error) {
-        const bundledChromiumError = formatError(error).split("\n", 1)[0];
-        console.warn("Playwright bundled Chromium is unavailable; falling back to a system browser.");
+    const failures: string[] = [];
+    const systemBrowsers = [
+        { channel: "msedge", label: "Microsoft Edge" },
+        { channel: "chrome", label: "Google Chrome" },
+    ];
 
+    for (const browser of systemBrowsers) {
         try {
-            return await chromium.launch({ channel: "msedge", headless: true });
-        } catch (edgeError) {
-            try {
-                return await chromium.launch({ channel: "chrome", headless: true });
-            } catch (chromeError) {
-                throw new Error(
-                    [
-                        "Failed to launch a headless browser for Mermaid export.",
-                        "Run `pnpm exec playwright install chromium` or install Microsoft Edge / Google Chrome.",
-                        `Playwright Chromium error: ${bundledChromiumError}`,
-                        `Microsoft Edge error: ${formatError(edgeError).split("\n", 1)[0]}`,
-                        `Google Chrome error: ${formatError(chromeError).split("\n", 1)[0]}`,
-                    ].join("\n")
-                );
-            }
+            return await chromium.launch({ channel: browser.channel, headless: true });
+        } catch (error) {
+            failures.push(`${browser.label}: ${formatError(error).split("\n", 1)[0]}`);
         }
     }
+
+    throw new Error(
+        [
+            "Failed to launch a headless browser for Mermaid export.",
+            "Install Microsoft Edge or Google Chrome, then run the command again.",
+            ...failures,
+        ].join("\n")
+    );
 }
 
 export async function renderMermaidBlocks(blocks: MermaidBlock[], options: MermaidRenderOptions): Promise<MermaidRenderBatchResult> {
@@ -94,7 +91,7 @@ export async function renderMermaidBlocks(blocks: MermaidBlock[], options: Merma
         await page.waitForFunction(() => typeof (window as { mermaid?: unknown }).mermaid !== "undefined");
 
         await page.evaluate(() => {
-            const mermaid = (window as { mermaid: { initialize: (options: Record<string, unknown>) => void } }).mermaid;
+            const mermaid = (window as unknown as { mermaid: { initialize: (options: Record<string, unknown>) => void } }).mermaid;
             mermaid.initialize({
                 startOnLoad: false,
                 theme: "default",
@@ -108,7 +105,7 @@ export async function renderMermaidBlocks(blocks: MermaidBlock[], options: Merma
         for (const block of blocks) {
             try {
                 const { svg } = await page.evaluate(async ({ captureRootId, code, index }) => {
-                    const mermaid = (window as {
+                    const mermaid = (window as unknown as {
                         mermaid: { render: (id: string, graphDefinition: string) => Promise<{ svg: string }> };
                     }).mermaid;
                     const { svg } = await mermaid.render(`wenyan-mermaid-${index}`, code.trim());

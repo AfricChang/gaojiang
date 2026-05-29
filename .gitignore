@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+dist-cli
 *.local
 
 # Editor directories and files
@@ -34,3 +35,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 src-bak/
+
+# Generated Mermaid CLI runtime bundled by Tauri release builds.
+/src-tauri/resources/mermaid-cli/
+/src-tauri/resources/wenyan-mermaid.cmd

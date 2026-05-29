@@ -10,7 +10,7 @@ export interface MermaidCliOptions {
 }
 
 const HELP_TEXT = `Usage:
-  pnpm mermaid:export -- <input> [--out-dir <dir>] [--all | --first | --index <n>] [--format svg|png]
+  wenyan-mermaid <input> [--out-dir <dir>] [--all | --first | --index <n>] [--format svg|png]
 
 Options:
   --out-dir <dir>  Output directory. Defaults to the input file's directory.
