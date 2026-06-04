@@ -16,6 +16,7 @@
   },
   "include": [
     "scripts/mermaid-export.ts",
+    "scripts/pdf-export.ts",
     "src/lib/headless/mermaidCli.ts",
     "src/lib/headless/mermaidExport.ts",
     "src/lib/headless/mermaidExtractor.ts",

@@ -14,6 +14,7 @@
     "cli:stage": "pnpm cli:clean && pnpm cli:build && node ./scripts/stage-mermaid-cli.mjs",
     "cli:smoke": "node ./scripts/smoke-mermaid-cli.mjs",
     "mermaid:export": "node --experimental-strip-types ./scripts/mermaid-export.ts",
+    "pdf:export": "node --experimental-strip-types ./scripts/pdf-export.ts",
     "test:mermaid-export": "node --experimental-strip-types --test ./src/lib/headless/mermaidExtractor.test.ts ./src/lib/headless/mermaidExport.test.ts",
     "tauri:dev": "tauri dev",
     "tauri:build": "tauri build",

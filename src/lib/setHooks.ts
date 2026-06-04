@@ -10,6 +10,7 @@ import {
     setUploadHelpClick,
     setResetTokenClick,
     setExportImageClick,
+    setExportPdfClick,
     setImageProcessorAction,
     setPublishArticleClick,
     setAutoCacheChangeClick,
@@ -29,7 +30,7 @@ import {
     setUploadBlobImage,
 } from "@wenyan-md/ui";
 import { resetWechatAccessToken } from "$lib/stores/sqliteCredentialStore";
-import { exportImage } from "$lib/services/exportHandler";
+import { exportImage, exportPdf } from "$lib/services/exportHandler";
 import { imageProcessorAction } from "./imageProcessor.svelte";
 import { copyHandler } from "$lib/services/copyHandler";
 import { sqliteUploadCacheStore } from "./stores/sqliteUploadCacheStore";
@@ -50,6 +51,7 @@ export function setHooks() {
     setUploadHelpClick(uploadHelpClick);
     setResetTokenClick(resetWechatAccessToken);
     setExportImageClick(exportImage);
+    setExportPdfClick(exportPdf);
     setImageProcessorAction(imageProcessorAction);
     setPublishArticleClick(defaultPublishHandler);
     setAutoCacheChangeClick(autoCacheChangeHandler);

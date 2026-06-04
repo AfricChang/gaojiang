@@ -51,6 +51,7 @@
     "fs:allow-read-dir",
     "fs:allow-read-file",
     "fs:allow-write-file",
+    "fs:allow-write-text-file",
     "shell:default",
     "shell:allow-open",
     "sql:default",

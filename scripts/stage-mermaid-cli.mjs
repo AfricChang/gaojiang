@@ -76,6 +76,7 @@ async function writeRuntimeReadme() {
         "Use `..\\wenyan-mermaid.cmd` from the installed application resources directory.",
         "",
         "The CLI exports Mermaid diagrams from `.md`, `.markdown`, and `.mmd` files to SVG or PNG.",
+        "The same runtime is also used by the desktop application for PDF export.",
         "",
         "It uses the system Microsoft Edge or Google Chrome browser for headless rendering.",
         "",
