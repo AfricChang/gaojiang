@@ -6,6 +6,7 @@
         MacWindowButtons,
         FileSidebarButton,
         ViewModeButtons,
+        ColorModeToggle,
     } from "@wenyan-md/ui";
     import { getCurrentWindow } from "@tauri-apps/api/window";
     import { type } from "@tauri-apps/plugin-os";
@@ -51,6 +52,7 @@
     </div>
     <div class="flex gap-4">
         <PlatformButtons />
+        <ColorModeToggle />
         <button
             class="inline-flex h-7.5 w-7.5 cursor-pointer items-center justify-center border-none bg-gray-200 hover:bg-white dark:bg-gray-700 transition-colors"
             onclick={showMoreMenu}
