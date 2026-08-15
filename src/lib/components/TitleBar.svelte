@@ -11,6 +11,7 @@
     import { getCurrentWindow } from "@tauri-apps/api/window";
     import { type } from "@tauri-apps/plugin-os";
     import { onMount } from "svelte";
+    import { appState } from "$lib/appState.svelte";
 
     let { showMoreMenu }: { showMoreMenu: () => void } = $props();
     // 可能的值: 'windows', 'macos', 'linux', 'android', 'ios'
@@ -36,7 +37,20 @@
     }
 </script>
 
-<div data-tauri-drag-region class="h-7.5 flex justify-between items-center bg-gray-200 dark:bg-gray-700">
+<div data-tauri-drag-region class="relative h-7.5 flex justify-between items-center bg-gray-200 dark:bg-gray-700">
+    <!-- 居中显示的当前文档标题 -->
+    <div class="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden px-44">
+        {#if appState.currentDocumentName}
+            <span
+                class="max-w-full truncate text-xs text-gray-500 select-none dark:text-gray-300"
+                title={appState.currentDocumentPath ?? appState.currentDocumentName}
+            >
+                {appState.currentDocumentName}
+            </span>
+        {:else}
+            <span class="text-xs text-gray-400 select-none dark:text-gray-500">未命名文档</span>
+        {/if}
+    </div>
     <div class="flex flex-row gap-4 justify-center items-center px-4">
         {#if currentOs === "macos"}
             <MacWindowButtons {minimizeWindow} {maximizeWindow} {closeWindow} class="mr-2" />

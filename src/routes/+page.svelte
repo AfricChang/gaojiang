@@ -19,10 +19,13 @@
     import { registerStore } from "$lib/storeRegister";
     import AboutPage from "$lib/components/AboutPage.svelte";
     import { tauriFsAdapter } from "$lib/tauriFsAdapter";
+    import { getLastArticleFileName, getLastArticleFilePath } from "$lib/stores/sqliteArticleStore";
 
     setHooks();
     onMount(async () => {
         await registerStore();
+        appState.currentDocumentName = await getLastArticleFileName();
+        appState.currentDocumentPath = await getLastArticleFilePath();
         globalState.setMarkdownText(await getDefaultArticle());
         globalState.setPlatform("wechat");
 

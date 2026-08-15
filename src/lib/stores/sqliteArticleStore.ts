@@ -101,3 +101,19 @@ export async function getLastArticleRelativePath(): Promise<string | null> {
     return lastArticle.relativePath;
 }
 
+export async function getLastArticleFileName(): Promise<string | null> {
+    const lastArticle = await getLastArticle();
+    if (!lastArticle) {
+        return null;
+    }
+    return lastArticle.fileName;
+}
+
+export async function getLastArticleFilePath(): Promise<string | null> {
+    const lastArticle = await getLastArticle();
+    if (!lastArticle) {
+        return null;
+    }
+    return lastArticle.filePath;
+}
+

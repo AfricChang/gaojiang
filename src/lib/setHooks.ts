@@ -104,6 +104,8 @@ async function importCssHandler(url: string, name: string) {
 
 async function onMarkdownFileDrop() {
     await updateLastArticlePath(null, null, null);
+    appState.currentDocumentName = null;
+    appState.currentDocumentPath = null;
 }
 
 async function uploadImageHook(imageUrl: string): Promise<WechatUploadResponse> {
