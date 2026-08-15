@@ -18,6 +18,7 @@
     import { setHooks } from "$lib/setHooks";
     import { registerStore } from "$lib/storeRegister";
     import AboutPage from "$lib/components/AboutPage.svelte";
+    import ScrollButtons from "$lib/components/ScrollButtons.svelte";
     import { tauriFsAdapter } from "$lib/tauriFsAdapter";
     import { getLastArticleFileName, getLastArticleFilePath } from "$lib/stores/sqliteArticleStore";
 
@@ -54,6 +55,7 @@
             <FileSidebar fsAdapter={tauriFsAdapter} />
         {/if}
         <MainPage />
+        <ScrollButtons />
 
         {#if globalState.judgeSidebarOpen()}
             <div class="h-full w-80">
