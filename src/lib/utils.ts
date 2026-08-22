@@ -2,7 +2,7 @@ import { writeHtml, writeText } from "@tauri-apps/plugin-clipboard-manager";
 import { resolveResource, isAbsolute, resolve, dirname, basename } from "@tauri-apps/api/path";
 import { readFile, readTextFile } from "@tauri-apps/plugin-fs";
 import { invoke } from "@tauri-apps/api/core";
-import { articleStore, bufferToBase64 } from "@wenyan-md/ui";
+import { articleStore, bufferToBase64, getFileExtension } from "@wenyan-md/ui";
 import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
 
 export async function writeHtmlToClipboard(html: string): Promise<void> {
@@ -135,16 +135,42 @@ export class FIFOCache<K, V> {
     }
 }
 
+const IMAGE_MIME_TYPES: Record<string, string> = {
+    png: "image/png",
+    jpg: "image/jpeg",
+    jpeg: "image/jpeg",
+    gif: "image/gif",
+    webp: "image/webp",
+    bmp: "image/bmp",
+    svg: "image/svg+xml",
+    avif: "image/avif",
+    ico: "image/x-icon",
+};
+
+/**
+ * 根据文件路径或文件名推断图片 MIME 类型，无法识别时返回 undefined。
+ * SVG 依赖该 MIME 才能被 <img> 渲染，位图则可由浏览器嗅探兜底。
+ */
+export function getImageMimeType(pathOrName: string): string | undefined {
+    // 去掉查询串与哈希，避免 logo.svg?v=2 这类地址推断失败
+    const cleanPath = pathOrName.split(/[?#]/)[0];
+    return IMAGE_MIME_TYPES[getFileExtension(cleanPath)];
+}
+
 export async function downloadImageToBase64(src: string): Promise<string> {
     // 获取图片二进制数据
     const response = await tauriFetch(src);
     const arrayBuffer = await response.arrayBuffer();
 
+    // 优先信任响应头，其次按扩展名推断（部分图床返回 octet-stream）
+    const headerMime = response.headers.get("content-type")?.split(";")[0].trim().toLowerCase();
+    const mimeType = headerMime?.startsWith("image/") ? headerMime : getImageMimeType(src);
+
     // 将 ArrayBuffer 转换为 Base64 字符串
-    return await bufferToBase64(arrayBuffer);
+    return await bufferToBase64(arrayBuffer, mimeType);
 }
 
 export async function localPathToBase64(path: string): Promise<string> {
     const uint8Array = await readFile(path);
-    return await bufferToBase64(uint8Array.buffer);
+    return await bufferToBase64(uint8Array.buffer, getImageMimeType(path));
 }

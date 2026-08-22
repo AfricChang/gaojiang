@@ -1,5 +1,5 @@
 import { sqliteUploadCacheStore } from "$lib/stores/sqliteUploadCacheStore";
-import { calculateHashFromPath, calculateHash, resolveRelativePath } from "$lib/utils";
+import { calculateHashFromPath, calculateHash, getImageMimeType, resolveRelativePath } from "$lib/utils";
 import { getFileExtension, settingsStore } from "@wenyan-md/ui";
 import { uploadFileCore } from "./wechatHandler";
 import type { WechatUploadResponse } from "@wenyan-md/core/wechat";
@@ -131,13 +131,12 @@ async function pathToFile(path: string): Promise<File> {
 }
 
 function getMimeType(fileName: string): string {
+    const imageMime = getImageMimeType(fileName);
+    if (imageMime) {
+        return imageMime;
+    }
     const ext = getFileExtension(fileName);
     const map: Record<string, string> = {
-        png: "image/png",
-        jpg: "image/jpeg",
-        jpeg: "image/jpeg",
-        gif: "image/gif",
-        webp: "image/webp",
         md: "text/markdown",
         txt: "text/plain",
     };
@@ -194,6 +193,8 @@ const map: Record<string, string> = {
     "image/jpeg": "jpg",
     "image/gif": "gif",
     "image/webp": "webp",
+    "image/bmp": "bmp",
+    "image/svg+xml": "svg",
     "text/markdown": "md",
     "text/plain": "txt",
 };
