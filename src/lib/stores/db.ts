@@ -51,26 +51,44 @@ async function migrateSchema(db: Database): Promise<void> {
 /**
  * 回收僵尸行。
  *
- * 每个进程写自己的 Article 行，进程退出后行会留下。行数上限约等于"历史最大并发进程数"，
- * 本身有界，这里只做兜底：保留最近写入的 KEEP_ARTICLE_ROWS 行，删掉其余。
- * 不能不做——单行 content 存的是整篇正文（实测一篇约 17 KB），累积起来不容忽视。
+ * 每个进程写自己的 Article 行，进程退出后行会留下，需要主动回收。
+ * 同时受两个上限约束，取更严的那个：
  *
- * 刻意不用 lastSeen < datetime('now', '-N day') 这类时间比较：
+ * - KEEP_ARTICLE_ROWS：最多保留多少行
+ * - ARTICLE_BUDGET_BYTES：保留行的 content 总字节上限
+ *
+ * 为什么光有行数上限不够：初版按"一篇约 17 KB"估算，取 10 行以为占用 170 KB。
+ * 实测踩到一篇 1.7 MB 的文档（生成的 SDK 头文件索引，16 万条函数声明），
+ * 10 行就是 17 MB，估算差 100 倍。行数上限对文档体量的假设根本不成立，必须按字节兜底。
+ *
+ * 刻意不用 lastSeen < datetime('now','-N day') 这类时间比较：
  * lastSeen 由 JS 的 toISOString() 写入，形如 2026-08-30T03:35:00.000Z，
  * 而 SQLite datetime() 产出 2026-08-30 03:35:00，字典序比较时 'T'(84) > ' '(32)，
- * 会漏删一批本该删的行。按行数保留则完全不涉及时间格式。
+ * 会漏删一批本该删的行。按行数与字节保留则完全不涉及时间格式。
  *
  * 误删活进程的行是无害的：该进程下次 save() 会重新 INSERT，
  * 而它的路径信息在内存里（见 sqliteArticleStore 的 currentPath），不受影响。
  */
 const KEEP_ARTICLE_ROWS = 10;
+const ARTICLE_BUDGET_BYTES = 2 * 1024 * 1024;
 
 async function cleanupZombieRows(db: Database): Promise<void> {
+    // rn = 1 让最近写入的那行无条件保留：单篇文档本身就超预算时（1.7 MB 那种），
+    // 若按字节把它也删掉，"恢复上次文档"就失效了。
     await db.execute(
         `DELETE FROM Article WHERE id NOT IN (
-            SELECT id FROM Article
-            ORDER BY COALESCE(lastSeen, createdAt) DESC, id DESC
-            LIMIT ${KEEP_ARTICLE_ROWS}
+            SELECT id FROM (
+                SELECT id,
+                       SUM(LENGTH(content)) OVER (
+                           ORDER BY COALESCE(lastSeen, createdAt) DESC, id DESC
+                           ROWS UNBOUNDED PRECEDING
+                       ) AS running,
+                       ROW_NUMBER() OVER (
+                           ORDER BY COALESCE(lastSeen, createdAt) DESC, id DESC
+                       ) AS rn
+                FROM Article
+            )
+            WHERE rn = 1 OR (rn <= ${KEEP_ARTICLE_ROWS} AND running <= ${ARTICLE_BUDGET_BYTES})
         );`,
     );
 }
