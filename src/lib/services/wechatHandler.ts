@@ -1,5 +1,5 @@
 import { credentialStore, settingsStore } from "@wenyan-md/ui";
-import { getWechatToken, updateWechatAccessToken } from "../stores/sqliteCredentialStore";
+import { withWechatTokenRefresh } from "../stores/sqliteCredentialStore";
 import { createWechatClient, type WechatPublishOptions, type WechatUploadResponse } from "@wenyan-md/core/wechat";
 import type { HttpAdapter, MultipartBody } from "@wenyan-md/core/http";
 import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
@@ -43,20 +43,19 @@ async function auth(): Promise<string> {
     const credential = credentialStore.getCredential("wechat");
     const appid = credential.appId!;
     const secret = credential.appSecret!;
-    const credentialDO = await getWechatToken();
-    if (credentialDO && credentialDO.accessToken && credentialDO.expireTime) {
-        const storedAccessToken = credentialDO.accessToken;
-        const expireTime = credentialDO.expireTime;
-        if (Date.now() < expireTime) {
-            return storedAccessToken;
+    // 多进程去重：token 过期时只让一个进程去微信取，其余进程等它写回。
+    // 微信侧重复取 token 会使先前那份失效，双发会让另一个进程的上传/发布报 40001。
+    return await withWechatTokenRefresh(async () => {
+        const data = await fetchAccessToken(appid, secret);
+        if (!data.access_token || !data.expires_in) {
+            throw new Error("获取微信 access_token 失败");
         }
-    }
-    const data = await fetchAccessToken(appid, secret);
-    if (data.access_token && data.expires_in) {
-        data.expires_in = Date.now() + data.expires_in * 1000;
-    }
-    await updateWechatAccessToken(data.access_token, data.expires_in);
-    return data.access_token;
+        return {
+            accessToken: data.access_token,
+            // 微信返回的是剩余秒数，落库前换成绝对时间戳
+            expireTime: Date.now() + data.expires_in * 1000,
+        };
+    });
 }
 
 export async function uploadFileCore(file: Blob | File, fileName: string): Promise<WechatUploadResponse> {

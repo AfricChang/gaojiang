@@ -1,7 +1,6 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use log::info;
 use std::fs::File;
 use std::io::Read;
 use std::path::{Path, PathBuf};
@@ -13,15 +12,10 @@ use tauri::Manager;
 const CREATE_NO_WINDOW: u32 = 0x08000000;
 
 fn main() {
+    // 不注册 tauri-plugin-single-instance：每次启动都是独立进程，
+    // 靠 OS 进程隔离让各进程拥有独立的 JS 运行时与 relativePath。
+    // 文件关联参数由下方 setup 里的 std::env::args() 处理。
     tauri::Builder::default()
-        .plugin(tauri_plugin_single_instance::init(|app, argv, _cwd| {
-            info!("second instance args: {:?}", argv);
-
-            if argv.len() > 1 {
-                let file = argv[1].clone();
-                let _ = app.emit("open-file", file);
-            }
-        }))
         .plugin(tauri_plugin_sql::Builder::default().build())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_fs::init())
