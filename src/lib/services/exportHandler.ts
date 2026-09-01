@@ -1,11 +1,26 @@
 import { domToPng } from "modern-screenshot";
 import { writeFile, writeTextFile } from "@tauri-apps/plugin-fs";
 import { save } from "@tauri-apps/plugin-dialog";
-import { globalState } from "@wenyan-md/ui";
+import { globalState, wenyanRenderer } from "@wenyan-md/ui";
 import { join, tempDir } from "@tauri-apps/api/path";
 import { invoke } from "@tauri-apps/api/core";
 import { downloadImageToBase64, getPathType, localPathToBase64, resolveRelativePath } from "$lib/utils";
 import { getLastArticleRelativePath } from "$lib/stores/sqliteArticleStore";
+import { appState } from "$lib/appState.svelte";
+import { pickExportBaseName } from "./exportFileName";
+
+/**
+ * 读取当前状态，交给纯函数定出导出文件名的基名。
+ * 规则（文档名 -> 标题 -> 默认名）与各级清理逻辑见 exportFileName.ts。
+ */
+function resolveExportBaseName(): string {
+    const { title, body } = wenyanRenderer.frontMatterResult;
+    return pickExportBaseName({
+        documentName: appState.currentDocumentName,
+        frontMatterTitle: title,
+        markdown: body || globalState.getMarkdownText(),
+    });
+}
 
 async function rasterizeMermaidSvgs(root: HTMLElement) {
     const svgElements = root.querySelectorAll<SVGSVGElement>('pre[data-mermaid-processed="true"] svg');
@@ -251,7 +266,7 @@ export async function exportImage() {
         const filePath = await save({
             title: "保存导出的图片",
             filters: [{ name: "Image", extensions: ["png"] }],
-            defaultPath: "wenyan-export.png",
+            defaultPath: `${resolveExportBaseName()}.png`,
         });
 
         if (filePath) {
@@ -281,7 +296,7 @@ export async function exportPdf() {
     const filePath = await save({
         title: "保存导出的 PDF",
         filters: [{ name: "PDF", extensions: ["pdf"] }],
-        defaultPath: "wenyan-export.pdf",
+        defaultPath: `${resolveExportBaseName()}.pdf`,
     });
 
     if (!filePath) {

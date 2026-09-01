@@ -16,6 +16,7 @@
     "mermaid:export": "node --experimental-strip-types ./scripts/mermaid-export.ts",
     "pdf:export": "node --experimental-strip-types ./scripts/pdf-export.ts",
     "test:mermaid-export": "node --experimental-strip-types --test ./src/lib/headless/mermaidExtractor.test.ts ./src/lib/headless/mermaidExport.test.ts",
+    "test:export-filename": "node --experimental-strip-types --test ./src/lib/services/exportFileName.test.ts",
     "tauri:dev": "tauri dev",
     "tauri:build": "tauri build",
     "tauri:info": "tauri info",
