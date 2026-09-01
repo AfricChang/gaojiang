@@ -1,7 +1,7 @@
 import { domToPng } from "modern-screenshot";
 import { writeFile, writeTextFile } from "@tauri-apps/plugin-fs";
 import { save } from "@tauri-apps/plugin-dialog";
-import { globalState, wenyanRenderer } from "@gaojiang/ui";
+import { globalState, gaojiangRenderer } from "@gaojiang/ui";
 import { join, tempDir } from "@tauri-apps/api/path";
 import { invoke } from "@tauri-apps/api/core";
 import { downloadImageToBase64, getPathType, localPathToBase64, resolveRelativePath } from "$lib/utils";
@@ -14,7 +14,7 @@ import { pickExportBaseName } from "./exportFileName";
  * 规则（文档名 -> 标题 -> 默认名）与各级清理逻辑见 exportFileName.ts。
  */
 function resolveExportBaseName(): string {
-    const { title, body } = wenyanRenderer.frontMatterResult;
+    const { title, body } = gaojiangRenderer.frontMatterResult;
     return pickExportBaseName({
         documentName: appState.currentDocumentName,
         frontMatterTitle: title,

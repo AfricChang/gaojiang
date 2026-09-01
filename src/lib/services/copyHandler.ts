@@ -1,12 +1,12 @@
 import { getWenyanElement, writeHtmlToClipboard, writeTextToClipboard } from "$lib/utils";
-import { globalState, wenyanCopier, wenyanRenderer } from "@gaojiang/ui";
+import { globalState, gaojiangCopier, gaojiangRenderer } from "@gaojiang/ui";
 
 export async function copyHandler() {
     if (globalState.getPlatform() === "juejin") {
-        writeTextToClipboard(wenyanRenderer.postHandlerContent);
+        writeTextToClipboard(gaojiangRenderer.postHandlerContent);
     } else {
         const wenyanElement = getWenyanElement();
-        await wenyanCopier.copy(wenyanElement);
-        writeHtmlToClipboard(wenyanCopier.html);
+        await gaojiangCopier.copy(wenyanElement);
+        writeHtmlToClipboard(gaojiangCopier.html);
     }
 }
