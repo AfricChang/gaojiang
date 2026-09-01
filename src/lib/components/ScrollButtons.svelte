@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { globalState } from "@wenyan-md/ui";
+    import { globalState } from "@gaojiang/ui";
 
     let scrollEl: HTMLElement | null = null;
     let showTop = $state(false);

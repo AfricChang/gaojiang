@@ -38,4 +38,7 @@ src-bak/
 
 # Generated Mermaid CLI runtime bundled by Tauri release builds.
 /src-tauri/resources/mermaid-cli/
-/src-tauri/resources/wenyan-mermaid.cmd
+/src-tauri/resources/gaojiang-mermaid.cmd
+
+# 本项目用 pnpm；npm 的 lockfile 是误生成，不应提交
+package-lock.json

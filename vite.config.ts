@@ -6,16 +6,16 @@ import path from "node:path";
 export default defineConfig({
     plugins: [tailwindcss(), sveltekit()],
     optimizeDeps: {
-        exclude: ["@wenyan-md/ui"],
+        exclude: ["@gaojiang/ui"],
     },
     resolve: {
         alias: {
-            "@wenyan-md/ui": path.resolve(__dirname, "./wenyan-ui/src/lib/index.ts"),
+            "@gaojiang/ui": path.resolve(__dirname, "./gaojiang-ui/src/lib/index.ts"),
         },
     },
     server: {
         fs: {
-            allow: ["./wenyan-ui"],
+            allow: ["./gaojiang-ui"],
         },
     },
 });

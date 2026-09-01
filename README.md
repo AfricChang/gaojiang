@@ -2,22 +2,29 @@
     <img alt = "logo" src="data/256-mac.png" width="128" />
 </div>
 
-# 文颜
+# 稿匠
 
-[![Download](https://img.shields.io/badge/download-latest-brightgreen?logo=downdetector&logoColor=white)](https://yuzhi.tech/docs/wenyan/download)
-[![Guides](https://img.shields.io/badge/docs-Getting_Started-fe7d37?logo=gitbook&logoColor=fff)](https://yuzhi.tech/docs/wenyan)
-[![License](https://img.shields.io/github/license/caol64/wenyan-pc)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/caol64/wenyan-pc?style=social)](https://github.com/caol64/wenyan-pc)
+[![Download](https://img.shields.io/badge/download-latest-brightgreen?logo=github&logoColor=white)](https://github.com/AfricChang/gaojiang/releases)
+[![License](https://img.shields.io/github/license/AfricChang/gaojiang)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/AfricChang/gaojiang?style=social)](https://github.com/AfricChang/gaojiang)
 
 ## 本仓库说明
 
-本仓库基于上游 [caol64/wenyan-pc](https://github.com/caol64/wenyan-pc) 继续维护，下面的项目介绍仍保留上游文颜的主体说明。
+**稿匠**是 [caol64/wenyan-pc](https://github.com/caol64/wenyan-pc)（文颜，Apache License 2.0）的 fork，
+独立命名以明确区分身份，**与上游文颜项目无官方关联**，请勿将本项目的问题反馈至上游。
 
-当前 fork 额外关注 Windows 桌面端使用体验，并在上游能力基础上加入了一些本地增强：
+本 fork 专注 Windows 桌面端体验，在上游能力基础上加入：
 
 - 编辑 / 预览 / 双视图切换，支持编辑独占与预览独占模式。
+- 明暗主题切换，偏好持久化。
 - Mermaid 流程图渲染修正，尽量避免中文文字裁切或显示不全。
 - 内置 Mermaid 命令行导出工具，可从 Markdown / Mermaid 文件导出 SVG 或 PNG。
+- PDF 导出、SVG 图片渲染。
+- 多进程多开，各窗口编辑不同文档互不干扰。
+- 导出文件名按文档名 / 标题自动推导。
+
+下面的项目介绍保留上游文颜的主体说明，渲染与发布能力来自上游的
+[`@wenyan-md/core`](https://github.com/caol64/wenyan-core)。
 
 ## 简介
 
@@ -35,11 +42,14 @@
 文颜目前提供多种形态，覆盖不同使用场景：
 
 * [macOS App Store 版](https://github.com/caol64/wenyan) - MAC 桌面应用
-* 👉 [跨平台版本](https://github.com/caol64/wenyan-pc) - 本项目
+* [跨平台版本](https://github.com/caol64/wenyan-pc) - 上游 Tauri 桌面端（**本项目 fork 自此**）
 * [CLI 版本](https://github.com/caol64/wenyan-cli) - 命令行 / CI 自动化发布
 * [MCP 版本](https://github.com/caol64/wenyan-mcp) - AI 自动发文
 * [UI 库](https://github.com/caol64/wenyan-ui) - 桌面应用和 Web App 共用的 UI 层封装
 * [核心库](https://github.com/caol64/wenyan-core) - 渲染、排版等核心能力
+
+本项目使用自己的 UI 层 fork [AfricChang/gaojiang-ui](https://github.com/AfricChang/gaojiang-ui)（`@gaojiang/ui`），
+核心库仍直接使用上游发布的 npm 包 `@wenyan-md/core`。
 
 ## 功能特性
 
@@ -77,11 +87,13 @@
 
 ## 更多功能介绍
 
-[https://wenyan.yuzhi.tech/](https://wenyan.yuzhi.tech/)
+排版与发布能力的详细说明见上游文档：[https://wenyan.yuzhi.tech/](https://wenyan.yuzhi.tech/)
 
 ## 下载安装包
 
-[https://yuzhi.tech/docs/wenyan/download](https://yuzhi.tech/docs/wenyan/download)
+**稿匠**（本项目）：[GitHub Releases](https://github.com/AfricChang/gaojiang/releases)
+
+上游**文颜**：[https://yuzhi.tech/docs/wenyan/download](https://yuzhi.tech/docs/wenyan/download)
 
 ## 从源码运行
 
@@ -90,7 +102,7 @@
 **克隆仓库**
 
 ```sh
-git clone --recursive https://github.com/caol64/wenyan-pc
+git clone --recursive https://github.com/AfricChang/gaojiang
 ```
 
 **安装依赖**
@@ -121,7 +133,7 @@ release 构建会自动执行 `pnpm cli:stage`，把 Mermaid CLI runtime 打包�
 
 ## Mermaid 命令行导出
 
-本 fork 提供 Windows 版 `wenyan-mermaid.cmd`，用于在不启动图形界面的情况下导出 Mermaid 图。
+本 fork 提供 Windows 版 `gaojiang-mermaid.cmd`，用于在不启动图形界面的情况下导出 Mermaid 图。
 
 源码开发时可以直接使用：
 
@@ -134,8 +146,8 @@ pnpm mermaid:export -- "diagram.mmd" --format svg
 安装 / release 产物中，命令位于应用 `resources` 目录，不会写入 `PATH`：
 
 ```powershell
-.\wenyan-mermaid.cmd "article.md" --format svg
-.\wenyan-mermaid.cmd "article.md" --format png --index 2
+.\gaojiang-mermaid.cmd "article.md" --format svg
+.\gaojiang-mermaid.cmd "article.md" --format png --index 2
 ```
 
 说明：
@@ -147,8 +159,8 @@ pnpm mermaid:export -- "diagram.mmd" --format svg
 
 ## 如何贡献
 
-- 通过 [Issue](https://github.com/caol64/wenyan-pc/issues) 报告**bug**或进行咨询。
-- 提交 [Pull Request](https://github.com/caol64/wenyan-pc/pulls)。
+- 通过 [Issue](https://github.com/AfricChang/gaojiang/issues) 报告**bug**或进行咨询。
+- 提交 [Pull Request](https://github.com/AfricChang/gaojiang/pulls)。
 - 分享 [自定义主题](https://github.com/caol64/wenyan/discussions/13)。
 - 推荐美观的 `Typora` 主题。
 

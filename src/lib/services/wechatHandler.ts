@@ -1,4 +1,4 @@
-import { credentialStore, settingsStore } from "@wenyan-md/ui";
+import { credentialStore, settingsStore } from "@gaojiang/ui";
 import { withWechatTokenRefresh } from "../stores/sqliteCredentialStore";
 import { createWechatClient, type WechatPublishOptions, type WechatUploadResponse } from "@wenyan-md/core/wechat";
 import type { HttpAdapter, MultipartBody } from "@wenyan-md/core/http";

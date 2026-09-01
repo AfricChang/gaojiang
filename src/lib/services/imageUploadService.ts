@@ -1,6 +1,6 @@
 import { sqliteUploadCacheStore } from "$lib/stores/sqliteUploadCacheStore";
 import { calculateHashFromPath, calculateHash, getImageMimeType, resolveRelativePath } from "$lib/utils";
-import { getFileExtension, settingsStore } from "@wenyan-md/ui";
+import { getFileExtension, settingsStore } from "@gaojiang/ui";
 import { uploadFileCore } from "./wechatHandler";
 import type { WechatUploadResponse } from "@wenyan-md/core/wechat";
 import { getLastArticleRelativePath } from "$lib/stores/sqliteArticleStore";

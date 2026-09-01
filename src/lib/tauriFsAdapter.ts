@@ -1,7 +1,7 @@
 import { open } from "@tauri-apps/plugin-dialog";
 import { readDir } from "@tauri-apps/plugin-fs";
 import { join } from "@tauri-apps/api/path";
-import { filterAndSortEntries, type FileEntry, type FileSystemAdapter } from "@wenyan-md/ui";
+import { filterAndSortEntries, type FileEntry, type FileSystemAdapter } from "@gaojiang/ui";
 
 export const tauriFsAdapter: FileSystemAdapter = {
     async openDirectoryPicker(): Promise<string | null> {

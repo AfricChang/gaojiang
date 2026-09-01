@@ -1,4 +1,4 @@
-import type { ThemeStorageAdapter, CustomTheme } from "@wenyan-md/ui";
+import type { ThemeStorageAdapter, CustomTheme } from "@gaojiang/ui";
 import { DBInstance } from "./db";
 
 interface ThemeDO {

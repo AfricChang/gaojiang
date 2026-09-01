@@ -9,11 +9,11 @@ The command is installed in the application's resources directory and is not add
 Run the command from Wenyan's installed `resources` directory, or call it with its full path.
 
 ```powershell
-.\wenyan-mermaid.cmd "article.md"
-.\wenyan-mermaid.cmd "article.md" --format png
-.\wenyan-mermaid.cmd "article.md" --format svg --out-dir output
-.\wenyan-mermaid.cmd "article.md" --index 2 --format png
-.\wenyan-mermaid.cmd "diagram.mmd" --format svg
+.\gaojiang-mermaid.cmd "article.md"
+.\gaojiang-mermaid.cmd "article.md" --format png
+.\gaojiang-mermaid.cmd "article.md" --format svg --out-dir output
+.\gaojiang-mermaid.cmd "article.md" --index 2 --format png
+.\gaojiang-mermaid.cmd "diagram.mmd" --format svg
 ```
 
 ## Inputs

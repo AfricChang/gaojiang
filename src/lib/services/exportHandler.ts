@@ -1,7 +1,7 @@
 import { domToPng } from "modern-screenshot";
 import { writeFile, writeTextFile } from "@tauri-apps/plugin-fs";
 import { save } from "@tauri-apps/plugin-dialog";
-import { globalState, wenyanRenderer } from "@wenyan-md/ui";
+import { globalState, wenyanRenderer } from "@gaojiang/ui";
 import { join, tempDir } from "@tauri-apps/api/path";
 import { invoke } from "@tauri-apps/api/core";
 import { downloadImageToBase64, getPathType, localPathToBase64, resolveRelativePath } from "$lib/utils";
@@ -311,7 +311,7 @@ export async function exportPdf() {
         host = prepared.host;
 
         const html = buildPdfHtml(prepared.clonedWenyan);
-        const htmlPath = await join(await tempDir(), `wenyan-export-${Date.now()}.html`);
+        const htmlPath = await join(await tempDir(), `gaojiang-export-${Date.now()}.html`);
         await writeTextFile(htmlPath, html);
 
         await invoke("export_pdf_with_browser", {

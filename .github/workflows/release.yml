@@ -36,7 +36,7 @@ jobs:
         shell: bash
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          ZIP_NAME="WenYan_${VERSION}_x64-setup"
+          ZIP_NAME="Gaojiang_${VERSION}_x64-setup"
           echo "zip_name=$ZIP_NAME" >> $GITHUB_ENV
 
       - name: Create Zip Archive

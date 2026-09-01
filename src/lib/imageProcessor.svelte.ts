@@ -1,5 +1,5 @@
 import mermaid from "mermaid";
-import type { ImageProcessorAction } from "@wenyan-md/ui";
+import type { ImageProcessorAction } from "@gaojiang/ui";
 import { downloadImageToBase64, FIFOCache, getPathType, localPathToBase64, resolveRelativePath } from "$lib/utils";
 import { getLastArticleRelativePath } from "./stores/sqliteArticleStore";
 
@@ -10,7 +10,7 @@ function isolateMermaidLabelStyles(root: ParentNode) {
     const svgElement = root.querySelector<SVGSVGElement>("svg");
     if (!svgElement) return;
 
-    svgElement.setAttribute("data-wenyan-mermaid", "true");
+    svgElement.setAttribute("data-gaojiang-mermaid", "true");
 
     const labelElements = svgElement.querySelectorAll<HTMLElement>("foreignObject p, foreignObject div, foreignObject span");
     for (const element of labelElements) {

@@ -1,4 +1,4 @@
-import { themeStore, settingsStore, localStorageSettingsAdapter, articleStore, credentialStore } from "@wenyan-md/ui";
+import { themeStore, settingsStore, localStorageSettingsAdapter, articleStore, credentialStore } from "@gaojiang/ui";
 import { sqliteThemeStorageAdapter } from "./stores/sqliteThemeStore";
 import { sqliteArticleStorageAdapter } from "./stores/sqliteArticleStore";
 import { sqliteCredentialStoreAdapter } from "./stores/sqliteCredentialStore";

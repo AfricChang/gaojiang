@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@source "../../node_modules/@wenyan-md/ui";
+@source "../../node_modules/@gaojiang/ui";
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {

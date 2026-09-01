@@ -5,7 +5,7 @@
  * 抽出来才能按项目既有约定（node:test）覆盖到。读状态的那一层留在 exportHandler。
  */
 
-export const DEFAULT_EXPORT_BASE_NAME = "wenyan-export";
+export const DEFAULT_EXPORT_BASE_NAME = "gaojiang-export";
 
 /** Windows 保留设备名，拿来做文件名会直接失败 */
 const RESERVED_FILE_NAMES = /^(con|prn|aux|nul|com[1-9]|lpt[1-9])$/i;

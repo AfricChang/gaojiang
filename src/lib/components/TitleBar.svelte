@@ -2,12 +2,12 @@
     import {
         PlatformButtons,
         Win32WindowButtons,
-        WenYanButton,
+        GaojiangButton,
         MacWindowButtons,
         FileSidebarButton,
         ViewModeButtons,
         ColorModeToggle,
-    } from "@wenyan-md/ui";
+    } from "@gaojiang/ui";
     import { getCurrentWindow } from "@tauri-apps/api/window";
     import { type } from "@tauri-apps/plugin-os";
     import { onMount } from "svelte";
@@ -55,11 +55,11 @@
         {#if currentOs === "macos"}
             <MacWindowButtons {minimizeWindow} {maximizeWindow} {closeWindow} class="mr-2" />
             <FileSidebarButton />
-            <span class="text-xs font-bold select-none">文颜</span>
+            <span class="text-xs font-bold select-none">稿匠</span>
             <ViewModeButtons />
         {:else}
-            <WenYanButton w="20px" />
-            <span class="text-xs font-bold select-none">文颜</span>
+            <GaojiangButton w="20px" />
+            <span class="text-xs font-bold select-none">稿匠</span>
             <FileSidebarButton />
             <ViewModeButtons />
         {/if}

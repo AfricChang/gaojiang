@@ -13,7 +13,7 @@
         CreateThemeModal,
         SimpleLoader,
         FileSidebar,
-    } from "@wenyan-md/ui";
+    } from "@gaojiang/ui";
     import { handleFileOpen, initFileOpenListener } from "$lib/services/fileOpenHandler";
     import { setHooks } from "$lib/setHooks";
     import { registerStore } from "$lib/storeRegister";

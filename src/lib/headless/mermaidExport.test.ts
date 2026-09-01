@@ -39,7 +39,7 @@ test("headless renderer resolves Mermaid from the local package", () => {
 });
 
 test("exportMermaidFromFile renders an .mmd file to a single SVG", async () => {
-    const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "wenyan-mermaid-mmd-"));
+    const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "gaojiang-mermaid-mmd-"));
     const inputPath = path.join(fixturesDir, "diagram.mmd");
 
     const result = await exportMermaidFromFile({
@@ -55,11 +55,11 @@ test("exportMermaidFromFile renders an .mmd file to a single SVG", async () => {
 
     const svg = await fs.readFile(result.writtenFiles[0], "utf8");
     assert.match(svg, /<svg/);
-    assert.match(svg, /data-wenyan-mermaid="true"/);
+    assert.match(svg, /data-gaojiang-mermaid="true"/);
 });
 
 test("exportMermaidFromFile renders an .mmd file to a PNG", async () => {
-    const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "wenyan-mermaid-png-"));
+    const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "gaojiang-mermaid-png-"));
     const inputPath = path.join(fixturesDir, "diagram.mmd");
 
     const result = await exportMermaidFromFile({
@@ -78,7 +78,7 @@ test("exportMermaidFromFile renders an .mmd file to a PNG", async () => {
 });
 
 test("exportMermaidFromFile renders all Mermaid blocks from Markdown to numbered SVGs", async () => {
-    const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "wenyan-mermaid-md-"));
+    const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "gaojiang-mermaid-md-"));
     const inputPath = path.join(fixturesDir, "two-diagrams.md");
 
     const result = await exportMermaidFromFile({
@@ -96,7 +96,7 @@ test("exportMermaidFromFile renders all Mermaid blocks from Markdown to numbered
 });
 
 test("CLI supports --format png", async () => {
-    const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "wenyan-mermaid-cli-png-"));
+    const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "gaojiang-mermaid-cli-png-"));
     const inputPath = path.join(fixturesDir, "diagram.mmd");
 
     const run = await runCli([inputPath, "--out-dir", outputDir, "--format", "png"]);
@@ -108,8 +108,8 @@ test("CLI supports --format png", async () => {
 });
 
 test("CLI supports --first and --index selection", async () => {
-    const firstDir = await fs.mkdtemp(path.join(os.tmpdir(), "wenyan-mermaid-first-"));
-    const secondDir = await fs.mkdtemp(path.join(os.tmpdir(), "wenyan-mermaid-index-"));
+    const firstDir = await fs.mkdtemp(path.join(os.tmpdir(), "gaojiang-mermaid-first-"));
+    const secondDir = await fs.mkdtemp(path.join(os.tmpdir(), "gaojiang-mermaid-index-"));
     const inputPath = path.join(fixturesDir, "two-diagrams.md");
 
     const firstRun = await runCli([inputPath, "--out-dir", firstDir, "--first"]);
@@ -127,7 +127,7 @@ test("CLI supports --first and --index selection", async () => {
 });
 
 test("CLI returns a non-zero exit code when no Mermaid block exists", async () => {
-    const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "wenyan-mermaid-empty-"));
+    const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "gaojiang-mermaid-empty-"));
     const inputPath = path.join(fixturesDir, "no-mermaid.md");
 
     const run = await runCli([inputPath, "--out-dir", outputDir]);
@@ -136,7 +136,7 @@ test("CLI returns a non-zero exit code when no Mermaid block exists", async () =
 });
 
 test("CLI returns a non-zero exit code and reports invalid Mermaid syntax", async () => {
-    const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "wenyan-mermaid-invalid-"));
+    const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "gaojiang-mermaid-invalid-"));
     const inputPath = path.join(fixturesDir, "invalid.mmd");
 
     const run = await runCli([inputPath, "--out-dir", outputDir]);

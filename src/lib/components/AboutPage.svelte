@@ -3,7 +3,7 @@
     import { type } from "@tauri-apps/plugin-os";
     import { open } from "@tauri-apps/plugin-shell";
     import { onMount } from "svelte";
-    import { Modal, WenYanIcon } from "@wenyan-md/ui";
+    import { Modal, GaojiangIcon } from "@gaojiang/ui";
     import { appState } from "$lib/appState.svelte";
 
     let versionStr = $state("");
@@ -30,10 +30,10 @@
     <div class="p-8 flex flex-col items-center gap-6 bg-white dark:bg-gray-900 rounded-lg">
         <div class="flex flex-col items-center gap-3">
             <div class="p-3 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-sm">
-                <WenYanIcon w="64px" />
+                <GaojiangIcon w="64px" />
             </div>
             <div class="text-center">
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">文颜</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">稿匠</h2>
                 <div
                     class="flex items-center justify-center gap-2 mt-1 text-sm text-gray-500 dark:text-gray-400 font-mono"
                 >
@@ -47,6 +47,7 @@
         <div class="flex gap-6 text-sm">
             <button
                 onclick={() => openLink("https://wenyan.yuzhi.tech")}
+                title="上游文颜官网（排版与发布功能文档）"
                 class="flex items-center gap-1.5 text-blue-600 dark:text-blue-400 hover:underline font-medium cursor-pointer"
             >
                 <svg
@@ -63,10 +64,10 @@
                         d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
                     /></svg
                 >
-                访问官网
+                上游官网
             </button>
             <button
-                onclick={() => openLink("https://github.com/caol64/wenyan-pc")}
+                onclick={() => openLink("https://github.com/AfricChang/gaojiang")}
                 class="flex items-center gap-1.5 text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white hover:underline transition-colors font-medium cursor-pointer"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"
@@ -78,34 +79,30 @@
             </button>
         </div>
 
-        <div class="w-full grid grid-cols-2 gap-3 pt-2">
+        <div class="w-full pt-2">
             <button
-                onclick={() => openLink("https://yuzhi.tech/contact")}
-                class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                onclick={() => openLink("https://github.com/AfricChang/gaojiang/issues")}
+                class="flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
             >
                 💬 问题反馈
-            </button>
-            <button
-                onclick={() => openLink("https://yuzhi.tech/sponsor")}
-                class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-linear-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 shadow-sm transition-all active:scale-95 cursor-pointer"
-            >
-                ❤️ 赞助支持
             </button>
         </div>
 
         <div class="mt-2 text-center pt-6 border-t border-gray-100 dark:border-gray-800 w-full">
             <p class="text-xs text-gray-400 dark:text-gray-500">
-                Created by
+                本项目是
                 <button
-                    onclick={() => openLink("https://babyno.top/")}
+                    onclick={() => openLink("https://github.com/caol64/wenyan-pc")}
                     class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors cursor-pointer"
                 >
-                    路边的阿不
+                    文颜
                 </button>
+                的 fork，与上游无官方关联
             </p>
             <p class="text-[10px] text-gray-300 dark:text-gray-600 mt-1">
-                © 2024-{new Date().getFullYear()} Lei Cao. All rights reserved.
+                © 2024-{new Date().getFullYear()} Lei Cao；© {new Date().getFullYear()} AfricChang
             </p>
+            <p class="text-[10px] text-gray-300 dark:text-gray-600">Apache License 2.0</p>
         </div>
     </div>
 </Modal>

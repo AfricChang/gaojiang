@@ -1,8 +1,8 @@
 [package]
-name = "wenyan"
+name = "gaojiang"
 version = "0.1.0" # not used
 description = "多平台写作，一键排版美化"
-authors = ["caol64@gmail.com"]
+authors = ["AfricChang"]
 edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

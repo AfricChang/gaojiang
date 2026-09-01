@@ -1,11 +1,11 @@
 {
-  "name": "@wenyan-md/pc",
+  "name": "@gaojiang/pc",
   "private": true,
   "type": "module",
   "version": "4.0.1",
   "scripts": {
     "ui:sync": "git submodule update --remote --merge && pnpm ui:init",
-    "ui:init": "cd wenyan-ui && pnpm install && pnpm svelte-kit sync",
+    "ui:init": "cd gaojiang-ui && pnpm install && pnpm svelte-kit sync",
     "web:install": "pnpm install && pnpm svelte-kit sync",
     "web:dev": "vite dev",
     "web:build": "vite build",
@@ -48,7 +48,7 @@
     "@tauri-apps/plugin-shell": "2.3.4",
     "@tauri-apps/plugin-sql": "2.3.2",
     "@wenyan-md/core": "^3.0.1",
-    "@wenyan-md/ui": "file:./wenyan-ui",
+    "@gaojiang/ui": "file:./gaojiang-ui",
     "mermaid": "^11.14.0",
     "modern-screenshot": "^4.6.8"
   },

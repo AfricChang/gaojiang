@@ -5,11 +5,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const launcherPath = path.join(repoRoot, "src-tauri", "resources", "wenyan-mermaid.cmd");
+const launcherPath = path.join(repoRoot, "src-tauri", "resources", "gaojiang-mermaid.cmd");
 const fixturePath = path.join(repoRoot, "src", "lib", "headless", "test-fixtures", "two-diagrams.md");
 
 if (process.platform !== "win32") {
-    console.log("Skipping Wenyan Mermaid CLI smoke test because the product CLI is currently Windows-only.");
+    console.log("Skipping Gaojiang Mermaid CLI smoke test because the product CLI is currently Windows-only.");
     process.exit(0);
 }
 
@@ -30,7 +30,7 @@ function runCli(args) {
         }
         throw new Error(
             [
-                `wenyan-mermaid failed with exit code ${result.status ?? "unknown"}.`,
+                `gaojiang-mermaid failed with exit code ${result.status ?? "unknown"}.`,
                 `stdout:\n${result.stdout}`,
                 `stderr:\n${result.stderr}`,
             ].join("\n")
@@ -40,7 +40,7 @@ function runCli(args) {
 
 await assertFileExists(launcherPath);
 
-const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "wenyan-mermaid-product-"));
+const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "gaojiang-mermaid-product-"));
 const svgDir = path.join(tempDir, "svg");
 const pngDir = path.join(tempDir, "png");
 

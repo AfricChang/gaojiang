@@ -1,5 +1,5 @@
 import { DBInstance } from "$lib/stores/db";
-import type { CredentialStoreAdapter, CredentialType, GenericCredential } from "@wenyan-md/ui";
+import type { CredentialStoreAdapter, CredentialType, GenericCredential } from "@gaojiang/ui";
 
 interface CredentialDO {
     id: number;

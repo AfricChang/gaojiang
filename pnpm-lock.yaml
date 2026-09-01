@@ -11,6 +11,9 @@ importers:
       '@codemirror/view':
         specifier: ^6.39.12
         version: 6.39.12
+      '@gaojiang/ui':
+        specifier: file:./gaojiang-ui
+        version: file:gaojiang-ui(@codemirror/language@6.12.1)(@lezer/highlight@1.2.3)(@sveltejs/kit@2.50.1(@sveltejs/vite-plugin-svelte@6.2.4(svelte@5.48.0)(vite@7.3.1(@types/node@24.10.11)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.48.0)(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.11)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.48.0)(tailwindcss@4.1.18)
       '@tauri-apps/api':
         specifier: 2.10.1
         version: 2.10.1
@@ -38,9 +41,6 @@ importers:
       '@wenyan-md/core':
         specifier: ^3.0.1
         version: 3.0.1
-      '@wenyan-md/ui':
-        specifier: file:./wenyan-ui
-        version: file:wenyan-ui(@codemirror/language@6.12.1)(@lezer/highlight@1.2.3)(@sveltejs/kit@2.50.1(@sveltejs/vite-plugin-svelte@6.2.4(svelte@5.48.0)(vite@7.3.1(@types/node@24.10.11)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.48.0)(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.11)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.48.0)(tailwindcss@4.1.18)
       mermaid:
         specifier: ^11.14.0
         version: 11.14.0
@@ -369,6 +369,13 @@ packages:
       '@codemirror/state': ^6.0.0
       '@codemirror/view': ^6.0.0
       '@lezer/highlight': ^1.0.0
+
+  '@gaojiang/ui@file:gaojiang-ui':
+    resolution: {directory: gaojiang-ui, type: directory}
+    peerDependencies:
+      '@sveltejs/kit': ^2.0.0
+      svelte: ^5.0.0
+      tailwindcss: ^4.0.0
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -966,13 +973,6 @@ packages:
         optional: true
       jsdom:
         optional: true
-
-  '@wenyan-md/ui@file:wenyan-ui':
-    resolution: {directory: wenyan-ui, type: directory}
-    peerDependencies:
-      '@sveltejs/kit': ^2.0.0
-      svelte: ^5.0.0
-      tailwindcss: ^4.0.0
 
   '@xmldom/xmldom@0.9.8':
     resolution: {integrity: sha512-p96FSY54r+WJ50FIOsCOjyj/wavs8921hG5+kVMmZgKcvIKxMXHTrjNJvRgWa/zuX3B6t2lijLNFaOyuxUH+2A==}
@@ -2055,6 +2055,33 @@ snapshots:
       '@codemirror/view': 6.39.12
       '@lezer/highlight': 1.2.3
 
+  '@gaojiang/ui@file:gaojiang-ui(@codemirror/language@6.12.1)(@lezer/highlight@1.2.3)(@sveltejs/kit@2.50.1(@sveltejs/vite-plugin-svelte@6.2.4(svelte@5.48.0)(vite@7.3.1(@types/node@24.10.11)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.48.0)(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.11)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.48.0)(tailwindcss@4.1.18)':
+    dependencies:
+      '@codemirror/commands': 6.10.1
+      '@codemirror/lang-css': 6.3.1
+      '@codemirror/lang-markdown': 6.5.0
+      '@codemirror/language-data': 6.5.2
+      '@codemirror/state': 6.5.4
+      '@codemirror/view': 6.39.12
+      '@fsegurai/codemirror-theme-vscode-dark': 6.2.4(@codemirror/language@6.12.1)(@codemirror/state@6.5.4)(@codemirror/view@6.39.12)(@lezer/highlight@1.2.3)
+      '@fsegurai/codemirror-theme-vscode-light': 6.2.4(@codemirror/language@6.12.1)(@codemirror/state@6.5.4)(@codemirror/view@6.39.12)(@lezer/highlight@1.2.3)
+      '@sveltejs/kit': 2.50.1(@sveltejs/vite-plugin-svelte@6.2.4(svelte@5.48.0)(vite@7.3.1(@types/node@24.10.11)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.48.0)(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.11)(jiti@2.6.1)(lightningcss@1.30.2))
+      '@wenyan-md/core': 3.0.5
+      codemirror: 6.0.2
+      dompurify: 3.3.1
+      idb-keyval: 6.2.2
+      mermaid: 11.14.0
+      modern-screenshot: 4.6.8
+      svelte: 5.48.0
+      tailwindcss: 4.1.18
+      uuid: 13.0.0
+    transitivePeerDependencies:
+      - '@codemirror/language'
+      - '@lezer/highlight'
+      - form-data-encoder
+      - formdata-node
+      - jsdom
+
   '@iconify/types@2.0.0': {}
 
   '@iconify/utils@3.1.0':
@@ -2603,33 +2630,6 @@ snapshots:
       marked: 15.0.12
       marked-highlight: 2.2.3(marked@15.0.12)
       mathjax-full: 3.2.2
-
-  '@wenyan-md/ui@file:wenyan-ui(@codemirror/language@6.12.1)(@lezer/highlight@1.2.3)(@sveltejs/kit@2.50.1(@sveltejs/vite-plugin-svelte@6.2.4(svelte@5.48.0)(vite@7.3.1(@types/node@24.10.11)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.48.0)(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.11)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.48.0)(tailwindcss@4.1.18)':
-    dependencies:
-      '@codemirror/commands': 6.10.1
-      '@codemirror/lang-css': 6.3.1
-      '@codemirror/lang-markdown': 6.5.0
-      '@codemirror/language-data': 6.5.2
-      '@codemirror/state': 6.5.4
-      '@codemirror/view': 6.39.12
-      '@fsegurai/codemirror-theme-vscode-dark': 6.2.4(@codemirror/language@6.12.1)(@codemirror/state@6.5.4)(@codemirror/view@6.39.12)(@lezer/highlight@1.2.3)
-      '@fsegurai/codemirror-theme-vscode-light': 6.2.4(@codemirror/language@6.12.1)(@codemirror/state@6.5.4)(@codemirror/view@6.39.12)(@lezer/highlight@1.2.3)
-      '@sveltejs/kit': 2.50.1(@sveltejs/vite-plugin-svelte@6.2.4(svelte@5.48.0)(vite@7.3.1(@types/node@24.10.11)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.48.0)(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.11)(jiti@2.6.1)(lightningcss@1.30.2))
-      '@wenyan-md/core': 3.0.5
-      codemirror: 6.0.2
-      dompurify: 3.3.1
-      idb-keyval: 6.2.2
-      mermaid: 11.14.0
-      modern-screenshot: 4.6.8
-      svelte: 5.48.0
-      tailwindcss: 4.1.18
-      uuid: 13.0.0
-    transitivePeerDependencies:
-      - '@codemirror/language'
-      - '@lezer/highlight'
-      - form-data-encoder
-      - formdata-node
-      - jsdom
 
   '@xmldom/xmldom@0.9.8': {}
 

@@ -1,5 +1,5 @@
 import { listen } from "@tauri-apps/api/event";
-import { globalState } from "@wenyan-md/ui";
+import { globalState } from "@gaojiang/ui";
 import { appState } from "$lib/appState.svelte";
 import { unpackFilePath } from "$lib/utils";
 import { handleMarkdownFile } from "./markdownContentHandler";

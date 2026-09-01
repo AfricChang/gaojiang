@@ -28,7 +28,7 @@ import {
     setHandleMarkdownContent,
     setMarkdownFileDrop,
     setUploadBlobImage,
-} from "@wenyan-md/ui";
+} from "@gaojiang/ui";
 import { resetWechatAccessToken } from "$lib/stores/sqliteCredentialStore";
 import { exportImage, exportPdf } from "$lib/services/exportHandler";
 import { imageProcessorAction } from "./imageProcessor.svelte";

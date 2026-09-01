@@ -1,4 +1,4 @@
-import type { ArticleStorageAdapter, Article } from "@wenyan-md/ui";
+import type { ArticleStorageAdapter, Article } from "@gaojiang/ui";
 import { DBInstance } from "./db";
 
 export interface ArticleDO {

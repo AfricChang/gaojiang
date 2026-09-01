@@ -1,4 +1,4 @@
-[submodule "wenyan-ui"]
-	path = wenyan-ui
-	url = https://github.com/AfricChang/wenyan-ui.git
-	branch = feature/mermaid-support
+[submodule "gaojiang-ui"]
+	path = gaojiang-ui
+	url = https://github.com/AfricChang/gaojiang-ui.git
+	branch = rename/gaojiang

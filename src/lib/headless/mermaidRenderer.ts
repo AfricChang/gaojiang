@@ -25,7 +25,7 @@ export interface MermaidRenderOptions {
 }
 
 const mermaidRuntimePath = fileURLToPath(new URL("../../../node_modules/mermaid/dist/mermaid.min.js", import.meta.url));
-const captureRootId = "wenyan-mermaid-capture";
+const captureRootId = "gaojiang-mermaid-capture";
 
 function formatError(error: unknown): string {
     if (error instanceof Error) {
@@ -108,7 +108,7 @@ export async function renderMermaidBlocks(blocks: MermaidBlock[], options: Merma
                     const mermaid = (window as unknown as {
                         mermaid: { render: (id: string, graphDefinition: string) => Promise<{ svg: string }> };
                     }).mermaid;
-                    const { svg } = await mermaid.render(`wenyan-mermaid-${index}`, code.trim());
+                    const { svg } = await mermaid.render(`gaojiang-mermaid-${index}`, code.trim());
                     const wrapper = document.createElement("div");
                     wrapper.innerHTML = svg;
 
@@ -117,7 +117,7 @@ export async function renderMermaidBlocks(blocks: MermaidBlock[], options: Merma
                         throw new Error("Mermaid renderer did not return an SVG element.");
                     }
 
-                    svgElement.setAttribute("data-wenyan-mermaid", "true");
+                    svgElement.setAttribute("data-gaojiang-mermaid", "true");
                     const labelElements = svgElement.querySelectorAll("foreignObject p, foreignObject div, foreignObject span");
                     for (const element of labelElements) {
                         if (!(element instanceof HTMLElement)) {

@@ -2,7 +2,7 @@ import { writeHtml, writeText } from "@tauri-apps/plugin-clipboard-manager";
 import { resolveResource, isAbsolute, resolve, dirname, basename } from "@tauri-apps/api/path";
 import { readFile, readTextFile } from "@tauri-apps/plugin-fs";
 import { invoke } from "@tauri-apps/api/core";
-import { articleStore, bufferToBase64, getFileExtension } from "@wenyan-md/ui";
+import { articleStore, bufferToBase64, getFileExtension } from "@gaojiang/ui";
 import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
 
 export async function writeHtmlToClipboard(html: string): Promise<void> {
