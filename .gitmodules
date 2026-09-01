@@ -1,4 +1,4 @@
 [submodule "gaojiang-ui"]
 	path = gaojiang-ui
 	url = https://github.com/AfricChang/gaojiang-ui.git
-	branch = rename/gaojiang
+	branch = main
